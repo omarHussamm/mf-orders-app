@@ -8,7 +8,7 @@ interface AppLayoutProps {
 
 export const AppLayout = ({ children }: AppLayoutProps) => {
   const location = useLocation();
-  const { basePath } = useAppContext();
+  const { basePath, user } = useAppContext();
   
   const navItems = [
     { name: 'All Orders', href: '/list', icon: '🛒' },
@@ -48,6 +48,49 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
             borderTop: '1px solid #eee'
           }}>
             <strong>BasePath:</strong> <code>{basePath}</code>
+          </div>
+        )}
+        {user && (
+          <div style={{ 
+            marginTop: '15px', 
+            padding: '12px', 
+            fontSize: '12px', 
+            backgroundColor: '#f8f9fa',
+            borderRadius: '6px',
+            border: '2px solid #007bff'
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px',
+              marginBottom: '8px'
+            }}>
+              <div style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#007bff',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '10px',
+                fontWeight: 'bold'
+              }}>
+                {user.avatar || user.name.split(' ').map(n => n[0]).join('')}
+              </div>
+              <div>
+                <div style={{ fontWeight: '600', color: '#495057' }}>{user.name}</div>
+                <div style={{ color: '#6c757d', textTransform: 'capitalize' }}>{user.role}</div>
+              </div>
+            </div>
+            <div style={{ 
+              fontSize: '11px', 
+              color: '#28a745',
+              fontWeight: '500'
+            }}>
+              🔄 User state shared from Host!
+            </div>
           </div>
         )}
       </aside>

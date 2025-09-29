@@ -7,15 +7,20 @@ import { CreateOrder } from './pages/CreateOrder.js'
 import { Analytics } from './pages/Analytics.js'
 
 // Flag to determine if app runs standalone or as a federated remote
-const STANDALONE = false // Set to false when running in federation mode
+// Default to true for development, override with VITE_STANDALONE env var
+const STANDALONE = import.meta.env.VITE_STANDALONE !== 'false'
+
+// Import User type from context
+import type { User } from './contexts/AppContext.js'
 
 interface AppProps {
   basePath?: string;
+  user?: User | null;
 }
 
-function App({ basePath = '' }: AppProps) {
+function App({ basePath = '', user = null }: AppProps) {
   const AppContent = (
-    <AppProvider basePath={basePath}>
+    <AppProvider basePath={basePath} user={user}>
       <AppLayout>
         <Routes>
           <Route path="/" element={<Navigate to={STANDALONE ? "/list" : `${basePath}/list`} replace />} />
