@@ -7,8 +7,8 @@ import { CreateOrder } from './pages/CreateOrder.js'
 import { Analytics } from './pages/Analytics.js'
 
 // Flag to determine if app runs standalone or as a federated remote
-// Default to true for development, override with VITE_STANDALONE env var
-const STANDALONE = import.meta.env.VITE_STANDALONE !== 'false'
+// Default to false (federation mode), only standalone when explicitly set to 'true'
+const STANDALONE = import.meta.env.VITE_STANDALONE === 'true'
 
 // Import User type from context
 import type { User } from './contexts/AppContext.js'
