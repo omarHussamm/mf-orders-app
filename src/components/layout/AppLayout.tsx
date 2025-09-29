@@ -1,13 +1,14 @@
 import type { ReactNode } from "react"
 import { Link, useLocation } from "react-router-dom"
+import { useAppContext } from '../../contexts/AppContext.js'
 
 interface AppLayoutProps {
   children: ReactNode;
-  basePath?: string;
 }
 
-export const AppLayout = ({ children, basePath = '' }: AppLayoutProps) => {
+export const AppLayout = ({ children }: AppLayoutProps) => {
   const location = useLocation();
+  const { basePath } = useAppContext();
   
   const navItems = [
     { name: 'All Orders', href: '/list', icon: '🛒' },

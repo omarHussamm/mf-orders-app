@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useNavigation } from '../contexts/AppContext.js'
 import { mockOrders } from '../data/mockOrders.js'
 import type { Order } from '../types/index.js'
 
 export const OrderDetail = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { getPath } = useNavigation()
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -57,7 +59,7 @@ export const OrderDetail = () => {
         <p style={{ color: '#666', marginBottom: '20px' }}>
           The order you're looking for doesn't exist.
         </p>
-        <Link to="/list" className="btn">
+        <Link to={getPath('/list')} className="btn">
           ← Back to Orders
         </Link>
       </div>
@@ -77,7 +79,7 @@ export const OrderDetail = () => {
           >
             ← Back
           </button>
-          <Link to="/list" className="btn btn-outline">
+          <Link to={getPath('/list')} className="btn btn-outline">
             All Orders
           </Link>
         </div>

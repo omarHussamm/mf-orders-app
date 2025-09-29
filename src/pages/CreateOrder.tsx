@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useNavigation } from '../contexts/AppContext.js'
 import { mockCustomers, mockProducts } from '../data/mockOrders.js'
 
 interface OrderItem {
@@ -11,6 +12,7 @@ interface OrderItem {
 
 export const CreateOrder = () => {
   const navigate = useNavigate()
+  const { getPath } = useNavigation()
   const [customerId, setCustomerId] = useState('')
   const [items, setItems] = useState<OrderItem[]>([])
   const [shippingAddress, setShippingAddress] = useState({
@@ -81,14 +83,14 @@ export const CreateOrder = () => {
 
     console.log('Creating order:', orderData)
     alert('Order created successfully!')
-    navigate('/list')
+    navigate(getPath('/list'))
   }
 
   return (
     <div>
       <div className="page-header">
         <h1 className="page-title">Create New Order</h1>
-        <Link to="/list" className="btn btn-outline">
+        <Link to={getPath('/list')} className="btn btn-outline">
           ← Back to Orders
         </Link>
       </div>
@@ -293,7 +295,7 @@ export const CreateOrder = () => {
                 <button type="submit" className="btn" style={{ width: '100%' }}>
                   🛒 Create Order
                 </button>
-                <Link to="/list" className="btn btn-outline" style={{ textAlign: 'center', width: '100%' }}>
+                <Link to={getPath('/list')} className="btn btn-outline" style={{ textAlign: 'center', width: '100%' }}>
                   Cancel
                 </Link>
               </div>

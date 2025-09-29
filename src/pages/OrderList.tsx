@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigation } from '../contexts/AppContext.js'
 import { mockOrders } from '../data/mockOrders.js'
 import type { Order } from '../types/index.js'
 
 export const OrderList = () => {
+  const { getPath } = useNavigation()
   const [orders] = useState<Order[]>(mockOrders)
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
@@ -40,7 +42,7 @@ export const OrderList = () => {
     <div>
       <div className="page-header">
         <h1 className="page-title">Orders</h1>
-        <Link to="/create" className="btn">
+        <Link to={getPath('/create')} className="btn">
           ➕ Create New Order
         </Link>
       </div>
@@ -90,7 +92,7 @@ export const OrderList = () => {
               <tr key={order.id}>
                 <td>
                   <Link 
-                    to={`/detail/${order.id}`}
+                    to={getPath(`/detail/${order.id}`)}
                     style={{ fontWeight: '600', color: '#007bff' }}
                   >
                     {order.orderNumber}
@@ -121,7 +123,7 @@ export const OrderList = () => {
                 <td>
                   <div style={{ display: 'flex', gap: '5px' }}>
                     <Link 
-                      to={`/detail/${order.id}`}
+                      to={getPath(`/detail/${order.id}`)}
                       className="btn btn-outline"
                       style={{ padding: '4px 8px', fontSize: '12px' }}
                     >
@@ -165,7 +167,7 @@ export const OrderList = () => {
               Show All Orders
             </button>
           ) : null}
-          <Link to="/create" className="btn">
+          <Link to={getPath('/create')} className="btn">
             Create First Order
           </Link>
         </div>

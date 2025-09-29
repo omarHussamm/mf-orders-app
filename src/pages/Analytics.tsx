@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigation } from '../contexts/AppContext.js'
 import { mockOrders } from '../data/mockOrders.js'
 
 export const Analytics = () => {
+  const { getPath } = useNavigation()
   const [orders] = useState(mockOrders)
 
   const analytics = useMemo(() => {
@@ -66,7 +68,7 @@ export const Analytics = () => {
     <div>
       <div className="page-header">
         <h1 className="page-title">Order Analytics</h1>
-        <Link to="/list" className="btn btn-outline">
+        <Link to={getPath('/list')} className="btn btn-outline">
           ← Back to Orders
         </Link>
       </div>
@@ -214,7 +216,7 @@ export const Analytics = () => {
         <div className="card">
           <h3>Actions</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <Link to="/create" className="btn">
+            <Link to={getPath('/create')} className="btn">
               ➕ Create New Order
             </Link>
             <button className="btn btn-outline">
